@@ -20,6 +20,6 @@ public class BasePageHelper implements Serializable {
     public String sort = "create_time";
 
     @ApiModelProperty("排序方向")
-    public String order = "DESC";
+    public String order = "desc";
 }
 
