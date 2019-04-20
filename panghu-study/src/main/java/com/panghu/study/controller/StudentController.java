@@ -8,10 +8,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -26,6 +23,18 @@ public class StudentController {
     @PostMapping("insertStudentInfo")
     public BaseResponse insertStudentInfo(@RequestBody @ApiParam StudentDTO studentDTO) {
         return ResultUtil.success(studentService.insertStudentInfo(studentDTO));
+    }
+
+    @ApiOperation(value = " 删除学生信息")
+    @GetMapping("deleteStudentInfo")
+    public BaseResponse deleteStudentInfo(@RequestParam @ApiParam String id) {
+        return ResultUtil.success(studentService.deleteStudentInfo(id));
+    }
+
+    @ApiOperation(value = " 修改学生信息")
+    @PostMapping("updateStudentInfo")
+    public BaseResponse updateStudentInfo(@RequestBody @ApiParam StudentDTO studentDTO) {
+        return ResultUtil.success(studentService.updateStudentInfo(studentDTO));
     }
 
     @ApiOperation(value = " 分页查询学生信息")
