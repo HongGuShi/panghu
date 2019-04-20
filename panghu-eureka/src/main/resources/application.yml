@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: panghu-eureka
+  profiles:
+    active: server1

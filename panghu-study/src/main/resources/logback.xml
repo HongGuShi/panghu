@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!--======================================= 本地变量 ======================================== -->
+    <property name="LOG_HOME" value="./logs/trade"/>
+    <!--日志文件保留天数 -->
+    <property name="LOG_MAX_HISTORY" value="30"/>
+
+    <!--=========================== 按照每天生成日志文件：默认配置=================================== -->
+    <!-- 控制台输出 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 按照每天生成日志文件：主项目日志 -->
+    <appender name="LOGFILE_INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_HOME}.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${LOG_HOME}_%d{yyyyMMdd}.log</FileNamePattern>
+            <MaxHistory>${LOG_MAX_HISTORY}</MaxHistory>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%date [%thread] %-5level %logger{80} - %msg%n</pattern>
+        </layout>
+    </appender>
+    <appender name="LOGFILE_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+        <File>${LOG_HOME}/error.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${LOG_HOME}/error_%d{yyyyMMdd}.log</FileNamePattern>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%date [%thread] %-5level %logger{80} - %msg%n</pattern>
+        </layout>
+    </appender>
+
+    <!--=============================== 日志输出: 默认主业务日志 ====================================== -->
+    <logger name="org.springframework">
+        <level value="WARN"/>
+    </logger>
+    <logger name="org.apache.shiro">
+        <level value="WARN"/>
+    </logger>
+    <logger name="freemarker">
+        <level value="WARN"/>
+    </logger>
+    <logger name="org.hibernate">
+        <level value="WARN"/>
+    </logger>
+    <logger name="org.hibernate.SQL">
+        <level value="INFO"/>
+    </logger>
+    <root level="INFO">
+        <appender-ref ref="LOGFILE_INFO"/>
+        <appender-ref ref="LOGFILE_ERROR"/>
+        <appender-ref ref="STDOUT"/>
+    </root>
+    <logger name="com.phq.study" level="INFO"/>
+</configuration>
