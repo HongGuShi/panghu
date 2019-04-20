@@ -5,15 +5,14 @@ spring:
     active: @profileActive@
   main:
     allow-bean-definition-overriding: true
-#feign:
-#  hystrix:
-#    enabled: true
-
-
+feign:
+  hystrix:
+    enabled: true
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml     #mapper文件路径
-  type-aliases-package: com.phq.study.entity   #实体类的包路径
+  type-aliases-package: com.panghu.study.entity   #实体类的包路径
+
 #pagehelper分页插件
 pagehelper:
   helperDialect: mysql

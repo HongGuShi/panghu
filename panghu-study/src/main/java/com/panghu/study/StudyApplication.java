@@ -1,5 +1,6 @@
 package com.panghu.study;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -15,15 +16,17 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableFeignClients
 @EnableEurekaClient
 @EnableDiscoveryClient
-public class StudyApplication extends SpringBootServletInitializer {
+@MapperScan("com.panghu.study.dao")
+public class StudyApplication {//extends SpringBootServletInitializer 将项目打成war包使用
+
     public static void main(String[] args) {
         SpringApplication.run(StudyApplication.class, args);
     }
 
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(StudyApplication.class);
-    }
+//    @Override
+//    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+//        return application.sources(StudyApplication.class);
+//    }
 
 //    @Bean
 //    public MapperScannerConfigurer mapperScannerConfigurer() {
@@ -31,7 +34,7 @@ public class StudyApplication extends SpringBootServletInitializer {
 //        properties.put("mappers", "tk.mybatis.mapper.common.Mapper,tk.mybatis.mapper.common.MySqlMapper,com.phq.common.base.IdInserListMapper");
 //        MapperScannerConfigurer msc = new MapperScannerConfigurer();
 //        msc.getMapperHelper().setProperties(properties);
-//        msc.setBasePackage("com.phq.study.dao");
+//        msc.setBasePackage("com.panghu.study.dao");
 //        return msc;
 //    }
 

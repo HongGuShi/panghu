@@ -31,7 +31,7 @@ public class Swagger2 {
         //添加head参数end
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.phq"))
+                .apis(RequestHandlerSelectors.basePackage("com.panghu"))
                 .paths(PathSelectors.any())
                 .build()
                 .globalOperationParameters(params);
