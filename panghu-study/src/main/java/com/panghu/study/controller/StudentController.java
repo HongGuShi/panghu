@@ -42,5 +42,4 @@ public class StudentController {
     public BaseResponse pageStudentInfo(@RequestBody @ApiParam StudentDTO studentDTO) {
         return ResultUtil.success(studentService.pageStudentInfo(studentDTO));
     }
-
 }
