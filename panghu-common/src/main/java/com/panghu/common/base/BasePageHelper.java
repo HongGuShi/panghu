@@ -21,5 +21,10 @@ public class BasePageHelper implements Serializable {
 
     @ApiModelProperty("排序方向")
     public String order = "desc";
+
+    public static void main(String[] args) {
+        int i = -2 % 3;
+        System.out.println(i);
+    }
 }
 
