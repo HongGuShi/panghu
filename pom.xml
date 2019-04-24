@@ -13,6 +13,7 @@
         <module>panghu-study</module>
         <module>panghu-common</module>
         <module>panghu-eureka</module>
+        <module>panghu-permission</module>
     </modules>
 
     <parent>
@@ -174,5 +175,4 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
 </project>
