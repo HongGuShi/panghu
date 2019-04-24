@@ -1,1 +1,1 @@
-Even in the darkness,you're see the truth!
+Even in the darkness,you'll see the truth!
