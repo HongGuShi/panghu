@@ -2,14 +2,15 @@ package com.panghu.permission.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 
 @Configuration
@@ -18,7 +19,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private UserDetailsService userDetailsService;
+    private AuthenticationProvider provider;
+
+    @Autowired
+    private AuthenticationSuccessHandler myAuthenticationSuccessHandler;
+
+    @Autowired
+    private AuthenticationFailureHandler myAuthenticationFailHander;
 
     /**
      * case1:只需要登录即可
@@ -31,10 +38,11 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         //配置一个用户角色,可配置多个,Spring Security在5.0版本之后,不允许明文密码,所以要使用passwordEncoder方法和BCryptPasswordEncoder类进行加密
-        auth.inMemoryAuthentication().passwordEncoder(new BCryptPasswordEncoder()).withUser("admin").password(new BCryptPasswordEncoder().encode("123456")).roles("ADMIN");//管理员用户
+        /*auth.inMemoryAuthentication().passwordEncoder(new BCryptPasswordEncoder()).withUser("admin").password(new BCryptPasswordEncoder().encode("123456")).roles("ADMIN");//管理员用户
         auth.inMemoryAuthentication().passwordEncoder(new BCryptPasswordEncoder()).withUser("james").password(new BCryptPasswordEncoder().encode("123456")).roles("USER");//普通用户
-//        auth.userDetailsService(userDetailsService)//将用户认证与数据库集成
-//        .passwordEncoder()//指定密码加密匹配模式
+        auth.userDetailsService(userDetailsService)//将用户认证与数据库集成
+                .passwordEncoder()//指定密码加密匹配模式*/
+        auth.authenticationProvider(provider);
     }
 
     /**
@@ -64,7 +72,10 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and() //拼接条件
                 .logout().permitAll()//注销允许访问
                 .and() //拼接条件
-                .formLogin();//form表单登录放行
+                .formLogin()//form表单登录放行
+                .successHandler(myAuthenticationSuccessHandler)//成功响应
+                .failureHandler(myAuthenticationFailHander)//失败响应
+                .permitAll();
         //关闭security自带的csrf跨域拦截//
         http.csrf().disable();
     }

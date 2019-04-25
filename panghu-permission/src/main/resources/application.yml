@@ -5,6 +5,11 @@ spring:
     active: @profileActive@
   main:
     allow-bean-definition-overriding: true
+  thymeleaf:
+      	suffix: .html
+      	cache: false
+      	#设置为传统模式，防止因为严格的语法检测遇到的各种麻烦，例如<html />后习惯不会去加斜杠就会被当做错误检测
+      	mode: LEGACYHTML5
 feign:
   hystrix:
     enabled: true

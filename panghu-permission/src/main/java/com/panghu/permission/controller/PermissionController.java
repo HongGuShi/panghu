@@ -3,6 +3,7 @@ package com.panghu.permission.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -28,4 +29,8 @@ public class PermissionController {
         return "您是管理员身份";
     }
 
+    @RequestMapping("/whoIm")
+    public Object whoIm() {//用户信息是存在SecurityContextHolder 的全局变量中，所以我们可以这样获取
+        return SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    }
 }

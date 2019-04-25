@@ -162,6 +162,12 @@
             <artifactId>hutool-all</artifactId>
             <version>4.4.5</version>
         </dependency>
+        <!--thymeleaf-->
+        <dependency>
+            <groupId>net.sourceforge.nekohtml</groupId>
+            <artifactId>nekohtml</artifactId>
+            <version>1.9.22</version>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
