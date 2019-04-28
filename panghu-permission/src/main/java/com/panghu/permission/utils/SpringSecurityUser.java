@@ -19,40 +19,40 @@ public class SpringSecurityUser implements UserDetails, Serializable {
     private Collection<? extends GrantedAuthority> authorities;
 
     @ApiModelProperty("权限是否过期")
-    private boolean credentialsNonExpired = true;
+    private boolean credentialsNonExpired = false;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return authorities;
     }
 
     @Override
     public String getPassword() {
-        return null;
+        return sysUserVO.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return sysUserVO.getUsername();
     }
 
     @Override
-    public boolean isAccountNonExpired() {
+    public boolean isAccountNonExpired() {//账户是否过期
         return false;
     }
 
     @Override
-    public boolean isAccountNonLocked() {
+    public boolean isAccountNonLocked() {//账户是否被锁
         return false;
     }
 
     @Override
-    public boolean isCredentialsNonExpired() {
+    public boolean isCredentialsNonExpired() {//证书是否过期
         return false;
     }
 
     @Override
-    public boolean isEnabled() {
+    public boolean isEnabled() {//是否禁用
         return false;
     }
 }

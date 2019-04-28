@@ -36,4 +36,6 @@ public class SysUserVO {
     @JoinTable(name = "sys_role_user", joinColumns = {@JoinColumn(name = "sys_user_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "sys_role_id", referencedColumnName = "id")})
     private List<SysRoleVO> sysRoles = new ArrayList<>();
+
+
 }

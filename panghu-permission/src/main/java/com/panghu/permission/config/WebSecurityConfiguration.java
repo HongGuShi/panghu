@@ -60,7 +60,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * `
      * 此重写方法用于配置不需要进行认证的资源
      *
      * @param web
