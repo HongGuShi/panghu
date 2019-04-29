@@ -45,18 +45,18 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         //auth.inMemoryAuthentication().passwordEncoder(new BCryptPasswordEncoder()).withUser("admin").password(new BCryptPasswordEncoder().encode("123456")).roles("ADMIN");//管理员用户
         //auth.inMemoryAuthentication().passwordEncoder(new BCryptPasswordEncoder()).withUser("james").password(new BCryptPasswordEncoder().encode("123456")).roles("USER");//普通用户
         //auth.authenticationProvider(provider);
-        auth.userDetailsService(userDetailsService)//将用户认证与数据库集成
-                .passwordEncoder(new PasswordEncoder() {//指定密码加密匹配模式
-                    @Override
-                    public String encode(CharSequence rawPassword) {
-                        return MD5Util.encode((String) rawPassword);
-                    }
-
-                    @Override
-                    public boolean matches(CharSequence rawPassword, String encodedPassword) {
-                        return encodedPassword.equals(MD5Util.encode((String) rawPassword));
-                    }
-                });
+        auth.userDetailsService(userDetailsService);//将用户认证与数据库集成
+//                .passwordEncoder(new PasswordEncoder() {//指定密码加密匹配模式
+//                    @Override
+//                    public String encode(CharSequence rawPassword) {
+//                        return MD5Util.encode((String) rawPassword);
+//                    }
+//
+//                    @Override
+//                    public boolean matches(CharSequence rawPassword, String encodedPassword) {
+//                        return encodedPassword.equals(MD5Util.encode((String) rawPassword));
+//                    }
+//                });
     }
 
     /**
@@ -94,15 +94,25 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable();*/
 
         //自定义登陆页面
-        http.formLogin()
-                //登陆成功后跳转的页面
-                //.defaultSuccessUrl("/index")
-                //登陆失败或无权限跳转页面
-                //.failureUrl("/errorPage")
-                .permitAll()
-                //其他所有页面必须验证后才可以访问
-                .and().authorizeRequests().anyRequest().authenticated()
-                //不加上不验证。不知道为什么
-                .and().csrf().disable();
+//        http.formLogin()
+//                //登陆成功后跳转的页面
+//                //.defaultSuccessUrl("/index")
+//                //登陆失败或无权限跳转页面
+//                //.failureUrl("/errorPage")
+//                .permitAll()
+//                //其他所有页面必须验证后才可以访问
+//                .and().authorizeRequests().anyRequest().authenticated()
+//                //不加上不验证。不知道为什么
+//                .and().csrf().disable();
+
+        http.authorizeRequests()
+                .anyRequest().authenticated() //任何请求,登录后可以访问
+                .and()
+                .formLogin()
+                .loginPage("/login")
+                .failureUrl("/login?error")
+                .permitAll() //登录页面用户任意访问
+                .and()
+                .logout().permitAll(); //注销行为任意访问
     }
 }

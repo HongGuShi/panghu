@@ -1,8 +1,11 @@
 package com.panghu.permission;
 
+import com.panghu.permission.dao.SysUserMapper;
+import com.panghu.permission.vo.SysUserVO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,8 +20,12 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @RunWith(SpringRunner.class)
 public class PermissionApplicationTest {
 
+    @Autowired
+    private SysUserMapper sysUserMapper;
+
     @Test
     public void contextLoad() {
+        SysUserVO sysUserVO = sysUserMapper.selectByUsername("admin");
+        System.out.println(sysUserVO);
     }
-
 }
