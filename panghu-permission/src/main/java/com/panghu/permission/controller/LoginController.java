@@ -12,12 +12,12 @@ public class LoginController {
     @ApiOperation(value = "主页")
     @GetMapping("/index")
     public String index() {
-        return "index.html";
+        return "/index.html";
     }
 
     @ApiOperation(value = "错误")
     @GetMapping("/errorPage")
     public String error() {
-        return "login-error.html";
+        return "/login-error.html";
     }
 }

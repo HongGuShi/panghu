@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 
@@ -45,7 +46,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         //auth.inMemoryAuthentication().passwordEncoder(new BCryptPasswordEncoder()).withUser("admin").password(new BCryptPasswordEncoder().encode("123456")).roles("ADMIN");//管理员用户
         //auth.inMemoryAuthentication().passwordEncoder(new BCryptPasswordEncoder()).withUser("james").password(new BCryptPasswordEncoder().encode("123456")).roles("USER");//普通用户
         //auth.authenticationProvider(provider);
-        auth.userDetailsService(userDetailsService);//将用户认证与数据库集成
+        auth.userDetailsService(userDetailsService)//将用户认证与数据库集成
 //                .passwordEncoder(new PasswordEncoder() {//指定密码加密匹配模式
 //                    @Override
 //                    public String encode(CharSequence rawPassword) {
@@ -57,6 +58,18 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 //                        return encodedPassword.equals(MD5Util.encode((String) rawPassword));
 //                    }
 //                });
+
+                .passwordEncoder(new PasswordEncoder() {//指定密码加密匹配模式
+                    @Override
+                    public String encode(CharSequence rawPassword) {
+                        return (String) rawPassword;
+                    }
+
+                    @Override
+                    public boolean matches(CharSequence rawPassword, String encodedPassword) {
+                        return encodedPassword.equals(rawPassword);
+                    }
+                });
     }
 
     /**
