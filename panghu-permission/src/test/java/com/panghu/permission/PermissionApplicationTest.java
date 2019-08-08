@@ -1,6 +1,8 @@
 package com.panghu.permission;
 
+import com.panghu.permission.controller.LoginController;
 import com.panghu.permission.dao.SysUserMapper;
+import com.panghu.permission.entity.SysUser;
 import com.panghu.permission.vo.SysUserVO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,7 +27,5 @@ public class PermissionApplicationTest {
 
     @Test
     public void contextLoad() {
-        SysUserVO sysUserVO = sysUserMapper.selectByUsername("admin");
-        System.out.println(sysUserVO);
     }
 }

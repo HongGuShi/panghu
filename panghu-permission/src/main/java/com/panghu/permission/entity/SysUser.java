@@ -16,6 +16,7 @@ public class SysUser {
 
     @ApiModelProperty(value = "id")
     @Column(name = "id")
+    @Id
     private Integer id;
 
     @ApiModelProperty(value = "用户名")
