@@ -82,9 +82,13 @@ public class LoginController {
 //        System.out.println(maxId);
 
 
-        char c = 'a' + 65535 - 97;
-        System.out.println(c);
-
-
+        long beginTime = System.currentTimeMillis();
+        for (int i = 0; i < 100; i++) {
+            for (int j = 0; j < 10000; j++) {
+                System.out.println("1");
+            }
+        }
+        long endTime = System.currentTimeMillis();
+        System.out.println("花费时间为:" + (endTime - beginTime));
     }
 }
